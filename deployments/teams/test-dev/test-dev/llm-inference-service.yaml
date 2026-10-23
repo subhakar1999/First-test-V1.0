@@ -1,0 +1,31 @@
+apiVersion: serving.kserve.io/v1alpha1
+kind: LLMInferenceService
+metadata:
+  name: test-dev-test-dev
+  namespace: ai-inference
+  labels:
+    ai.platform/team: test-dev
+    backstage.io/kubernetes-id: test-dev-test-dev
+spec:
+  model:
+    name: qwen-support
+    uri: hf://Qwen/Qwen2.5-1.5B-Instruct
+    lora:
+      maxRank: 32
+      maxAdapters: 4
+  replicas: 1
+  template:
+    containers:
+      - name: main
+        image: vllm/vllm-openai:latest
+        resources:
+          requests:
+            cpu: "4"
+            memory: 24Gi
+            nvidia.com/gpu: "1"
+          limits:
+            cpu: "8"
+            memory: 32Gi
+            nvidia.com/gpu: "1"
+  router:
+    gateway: {}

@@ -1,0 +1,14 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: test-dev-test-dev
+  description: AI model endpoint for test-dev
+  annotations:
+    backstage.io/kubernetes-id: test-dev-test-dev
+    ai.platform/model-uri: hf://Qwen/Qwen2.5-1.5B-Instruct
+    ai.platform/dataset-uri: s3://datasets/support/train.jsonl
+    ai.platform/monthly-budget-usd: "500"
+spec:
+  type: ai-model
+  lifecycle: experimental
+  owner: test-dev

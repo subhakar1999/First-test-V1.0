@@ -1,0 +1,18 @@
+# Training worker must stage the dataset at /data/train.jsonl and model at /models/base.
+base_model: /models/base
+model_type: AutoModelForCausalLM
+load_in_4bit: true
+adapter: qlora
+lora_r: 16
+lora_alpha: 32
+datasets:
+  - path: /data/train.jsonl
+    type: chat_template
+    chat_template: tokenizer_default
+    field_messages: messages
+    roles_to_train: ["assistant"]
+    train_on_eos: "turn"
+output_dir: /artifacts/adapter
+sequence_len: 4096
+micro_batch_size: 2
+num_epochs: 3
